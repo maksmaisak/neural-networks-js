@@ -59,6 +59,7 @@ window.onload = function() {
         foodCharge: 20,         // the amount of health food is going to restore
         defaultHealth: 200,
         rotationCoeficient: 2,  //maxRotation() of Blue is [coeficient] times slower at maxSpeed()
+        mutationRateConst : 0.05,
         mutationRate: 0.05,
         minMutationRate: 0.0005,
         calcInterval: undefined, //interval id
@@ -392,6 +393,8 @@ window.onload = function() {
             clearInterval ( this.calcInterval );
             this.objects = [];
             this.generation = 1;
+            document.getElementById('GenerationCounter').innerHTML = this.generation;
+            this.mutationRate = this.mutationRateConst;
             
             var objects = document.getElementById('World').getElementsByTagName('div');
             for(var c = objects.length-1; c >= 0; c--) {
