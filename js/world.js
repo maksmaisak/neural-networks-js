@@ -1,3 +1,5 @@
+/* Evolving Neural Nets by Maksim Maisak */
+
 function angleNormalize(angle){
     var newAngle = angle;
 
