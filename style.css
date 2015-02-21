@@ -140,6 +140,10 @@ body {
     background-color: #ddd;
 }
 
+#Settings > div:active {
+    background-color: #ccc
+}
+
 #Settings > div > p {
     position: absolute;
     top:50%;
