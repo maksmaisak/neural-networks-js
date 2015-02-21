@@ -18,7 +18,7 @@ function toPercentage(value,min,max){
     return (value / range) * 100;
 }
 
-window.onload = function(){  
+window.onload = function() {  
     //rAF region
     
     var lastTime = 0;
@@ -61,6 +61,7 @@ window.onload = function(){
         rotationCoeficient: 2,  //maxRotation() of Blue is [coeficient] times slower at maxSpeed()
         mutationRate: 0.05,
         minMutationRate: 0.0005,
+        calcInterval: undefined, //interval id
         
         death: true,
         collisions: true,
@@ -69,7 +70,7 @@ window.onload = function(){
         HTMLElement: document.getElementById('World'),
         size: new Vector(1024,768),
         
-        isInside: function(obj){
+        isInside: function(obj) {
             var radius = obj.HTMLElement.style.width;
             var width = world.size.x - this.entityRadius;
             var height = world.size.y - this.entityRadius;
@@ -78,7 +79,7 @@ window.onload = function(){
             return true;
         },
 
-        createObject: function(objectType,position,vector){  
+        createObject: function(objectType,position,vector) {  
             
             var div = document.createElement('div');
             div.className = objectType;
@@ -91,7 +92,7 @@ window.onload = function(){
             return div.id;
         },
         
-        clear: function(){
+        clear: function() {
             for(var i = 0; i < this.objects.length; i++){    
                 var div = document.getElementById(i);
                 this.HTMLElement.removeChild(div);
@@ -99,21 +100,21 @@ window.onload = function(){
             this.objects = [];
         },
         
-        fill: function(){
-            for (var c = 0; c < 5; c++){
-                var pos = new Vector(math.random(700),math.random(500));  //position
-                var vec = new Vector(math.random(-20,20),math.random(-20,20));  //vector
+        fill: function() {
+            for (var c = 0; c < world.numberOfGreens; c++){
+                var pos = new Vector(math.random(world.size.x-world.entityRadius),math.random(world.size.y-world.entityRadius));  //position
+                var vec = new Vector(0,0);  //vector
                 this.createObject('green',pos,vec);
             }
-    
-            for (var c = 0; c < 10; c++){
-                var pos = new Vector(math.random(700),math.random(500));  //position
-                var vec = new Vector(math.random(-35,35),math.random(-25,25));  //vector
+
+            for (var c = 0; c < world.numberOfBlues; c++){
+                var pos = new Vector(math.random(world.size.x-world.entityRadius),math.random(world.size.y-world.entityRadius));  //position
+                var vec = new Vector(math.random(-35,35),math.random(-35,35));  //vector
                 this.createObject('blue',pos,vec);
-            }    
+            }   
         },
         
-        generationStart: function(){
+        generationStart: function() {
             
             document.getElementById('EntitiesStates').innerHTML = '';
             
@@ -211,7 +212,7 @@ window.onload = function(){
             }
         },
         
-        start: function(){ 
+        start: function() { 
             
             this.HTMLElement.style.width = this.size.x + 'px';
             this.HTMLElement.style.height = this.size.y + 'px';
@@ -228,7 +229,7 @@ window.onload = function(){
             
             this.framecount = 0;
             
-            var calcInterval = setInterval(function(){ 
+            this.calcInterval = setInterval(function(){ 
                 world.step(this.framecount);
             },1000 / ( world.calcRate * world.speed ));   
             
@@ -243,7 +244,7 @@ window.onload = function(){
 		    
         },
         
-        step: function(frame){  // calculation step
+        step: function(frame) {  // calculation step
             this.framecount++;
             
             if ( this.mutationRate <= this.minMutationRate ){
@@ -373,7 +374,7 @@ window.onload = function(){
             }
         }, 
         
-        draw: function(){   //visualisation step
+        draw: function() {   //visualisation step
             for( i = 0 ; i < this.objects.length;i++ ){
                 var element = this.objects[i];
                 element.HTMLElement.style.left = element.position.x + 'px'; 
@@ -385,7 +386,27 @@ window.onload = function(){
                 element.HTMLElement.style.msTransform = 'rotate3d(0,0,1,' + angle + 'rad)';
                 element.HTMLElement.style.transform = 'rotate3d(0,0,1,' + angle + 'rad)';
             }
+        },
+        
+        restart: function() {
+            clearInterval ( this.calcInterval );
+            this.objects = [];
+            this.generation = 1;
+            
+            var objects = document.getElementById('World').getElementsByTagName('div');
+            for(var c = objects.length-1; c >= 0; c--) {
+                objects[c].parentElement.removeChild( objects[c] );
+            }
+            
+            var objects = document.getElementById('EntitiesStates').getElementsByTagName('div');
+            for(var c = objects.length-1; c >=0; c--) {
+                objects[c].parentElement.removeChild( objects[c] );
+            }
+                
+            this.fill();
+            this.start();
         }
+        
     }
 
     //World endregion
@@ -940,6 +961,13 @@ window.onload = function(){
     }
     
     //brain endregion
+    //Buttons region
+    
+    document.getElementById("Restart").onclick = function() {
+        world.restart();
+    };
+    
+    //Buttons endregion
     //MAIN region
     
     for (var c = 0; c < world.numberOfGreens; c++){
