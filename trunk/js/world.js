@@ -653,55 +653,55 @@ window.onload = function(){
                 this.y = 0.0;
             },
 
-            // установка значений x и y
+            // set x and y
             set: function(x_, y_) {this.x=x_; this.y=y_;},
 
-            // установка значений из объекта
+            // set from a different object
             setV: function(v) {
                 this.x=v.x;
                 this.y=v.y;
             },
 
-            // реверс вектора
+            // reverse vector
             negative: function(){
                 return new Vector(-this.x, -this.y);
             },
 
-            // копия вектора
+            // copy vector
             copy: function(){
                 return new Vector(this.x,this.y);
             },
 
-            // сложение с вектором
+            // vector addition
             add: function(v) {
                 this.x += v.x; this.y += v.y;
                 return this;
             },
 
-            // вычетание вектора
+            // vector substraction
             substract: function(v) {
                 this.x -= v.x; this.y -= v.y;
                 return this;
             },
 
-            // умножение на число
+            // multiplication with scalar
             multiply: function(a) {
                 this.x *= a; this.y *= a;
                 return this;
             },
 
-            // деление на число
+            // division with scalar
             div: function(a) {
                 this.x /= a; this.y /= a;
                 return this;
             },
 
-            // получение длины вектора
+            // vector's length
             length: function() {
                 return Math.sqrt(this.x * this.x + this.y * this.y);
             },
 
-            // нормализация вектора (приведение к вектору с длиной = 1)
+            // vector normalization
             normalize: function() {
                 var length = this.length();
                 if (length < Number.MIN_VALUE) {
@@ -714,7 +714,7 @@ window.onload = function(){
                 return length;
             },
 
-            // получение угла вектора
+            // vector's angle
             angle: function () {
                 var x = this.x;
                 var y = this.y;
@@ -732,17 +732,17 @@ window.onload = function(){
                 return v.angle() - this.angle();    
             },
 
-            // получение растояния до другого вектора (полезно если вектором задается положение спрайта)
+            // distance to a different vector
             distanceTo: function (v) {
                 return Math.sqrt((v.x - this.x) * (v.x - this.x) + (v.y - this.y) * (v.y - this.y));
             },
 
-            // получение вектора проведенного от вершины x,y данного вектора до вершины x,y другого вектора  
+            // gets vector from this vector's (x,y) to other vector's (x,y)  
             vectorTo: function (v) {
                 return new Vector(v.x - this.x, v.y - this.y);
             },
 
-            // поворот вектора на заданный угл
+            // set vector angle
             setRotation: function (angle) {
                 var length = this.length();
                 this.x = Math.sin(angle) * length;
