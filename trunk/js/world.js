@@ -76,7 +76,7 @@ window.onload = function() {
             var width = world.size.x - this.entityRadius;
             var height = world.size.y - this.entityRadius;
             
-            if(obj.position.x >= width || obj.position.x <=0 || obj.position.y >= height || obj.position.y <=0 ){return false;}
+            if(obj.position.x >= width || obj.position.x <= 0 || obj.position.y >= height || obj.position.y <= 0 ){return false;}
             return true;
         },
 
@@ -362,7 +362,13 @@ window.onload = function() {
                     
                     if (!world.isInside(obj)){
                         
-                        obj.setPosition( new Vector(world.size.x - obj.position.x - this.entityRadius, world.size.y - obj.position.y - this.entityRadius));
+                        var tempX = world.size.x - obj.position.x;
+                        var tempY = world.size.y - obj.position.y;
+                        
+                        obj.setPosition( new Vector(
+                            obj.position.x <= 0 ? tempX - this.entityRadius : tempX, 
+                            obj.position.y <= 0 ? tempY - this.entityRadius : tempY
+                        ));
                         
                     }
                     
