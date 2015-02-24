@@ -103,13 +103,23 @@ window.onload = function() {
         
         fill: function() {
             for (var c = 0; c < world.numberOfGreens; c++){
-                var pos = new Vector(math.random(world.size.x-world.entityRadius),math.random(world.size.y-world.entityRadius));  //position
+                
+                var pos = new Vector(
+                    math.random(this.entityRadius,this.size.x-this.entityRadius),
+                    math.random(this.entityRadius,this.size.y-this.entityRadius)
+                );  //position
+                
                 var vec = new Vector(0,0);  //vector
                 this.createObject('green',pos,vec);
             }
 
             for (var c = 0; c < world.numberOfBlues; c++){
-                var pos = new Vector(math.random(world.size.x-world.entityRadius),math.random(world.size.y-world.entityRadius));  //position
+                
+                var pos = new Vector(
+                    math.random(this.entityRadius,this.size.x-this.entityRadius),
+                    math.random(this.entityRadius,this.size.y-this.entityRadius)
+                );  //position
+
                 var vec = new Vector(math.random(-35,35),math.random(-35,35));  //vector
                 this.createObject('blue',pos,vec);
             }   
@@ -284,13 +294,14 @@ window.onload = function() {
                                     entity.setPosition( new Vector(-100, -100) ); 
                                     entity.state = 'dead';
                                     
-                                    if (math.random() < 0.5){
+                                    //create a new green
+                                    var pos = new Vector(
+                                        math.random(this.entityRadius,this.size.x-this.entityRadius),
+                                        math.random(this.entityRadius,this.size.y-this.entityRadius)
+                                    );  //position
 
-                                        var pos = new Vector(math.random(700),math.random(500)); 
-                                        var vec = new Vector(0,0); 
-                                        this.createObject('green',pos,vec);  
-
-                                    }
+                                    var vec = new Vector(0,0);  //vector
+                                    this.createObject('green',pos,vec); 
                                 }
                                 
                                 else if ( entity.entityType == 'blue' && entity.state == 'dead' && obj.position.distanceTo(entity.position) < this.entityRadius && entity != obj ){   //collision with a corpse
@@ -360,7 +371,7 @@ window.onload = function() {
                         }
                     }
                     
-                    if (!world.isInside(obj)){
+                    if ( !world.isInside(obj) && obj.state != 'dead' ){ /* TEMPORARY! */
                         
                         var tempX = world.size.x - obj.position.x;
                         var tempY = world.size.y - obj.position.y;
