@@ -1,0 +1,1 @@
+Evolution of agents driven by neural networks. Implemented using JavaScript.
