@@ -5,12 +5,11 @@
 }
 
 body {
-	width: 100vw;
-	*overflow: hidden;
+	width: 100%;
 }
 
 #WorldWrap {
-    width: 100vw;
+    width: 100%;
     background-color: #eee;
 }
 
