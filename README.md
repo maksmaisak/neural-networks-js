@@ -1,6 +1,6 @@
 # neural-networks-js
 
-(## Demo)[demo link]
+## (Demo)[demo link]
 
 It is a simulation of simple environments populated by [intelligent agents] which use [artificial neural networks] to make decisions. The general idea is as follows.
 
