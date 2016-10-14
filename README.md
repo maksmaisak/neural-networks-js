@@ -1,5 +1,7 @@
 # neural-networks-js
 
+(## Demo)[demo link]
+
 It is a simulation of simple environments populated by [intelligent agents] which use [artificial neural networks] to make decisions. The general idea is as follows.
 
 Each agent contains a simple neural network (a [multilayer perceptron]) which is, essentially, a function which takes and returns a set of numbers. The input of the NN is the data from various "sensors", represented by numbers. The outputs are used to determine the actions of the agent. 
@@ -12,10 +14,11 @@ The agents are blue creatures in a small 2D world, which also contains green "fo
 
 The sensors of each agent register information related to relative positions of nearby agents and food pellets. The outputs of each agent's neural network define its acceleration and rotation for the current step of the simulation.
 
-The project was written in JavaScript for the web. I used [math.js] to implement the agents' neural networks. An online demonstration is available [here](http://fazan64.github.io/neural-networks-js/).
+The project was written in JavaScript for the web. I used [math.js] to implement the agents' neural networks. An online demonstration is available [here][demo link].
 
 [intelligent agents]: https://en.wikipedia.org/wiki/Intelligent_agent
 [artificial neural networks]: https://en.wikipedia.org/wiki/Artificial_neural_network
 [multilayer perceptron]: https://en.wikipedia.org/wiki/Multilayer_perceptron
 
 [math.js]: http://mathjs.org/
+[demo link]: http://fazan64.github.io/neural-networks-js/
